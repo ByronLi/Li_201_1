@@ -1,17 +1,21 @@
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.annotations.Expose;
 
 public class School{
 	
-
+	@Expose()
 	private String name;
-	private Vector<Department> departments;
+	@Expose()
+	private ArrayList<Department> departments;
 
 	public String getName() {
 		return name;
 	}
 
 
-	public Vector<Department> getDepartments() {
+	public ArrayList<Department> getDepartments() {
 		return departments;
 	}
 	
@@ -22,12 +26,16 @@ public class School{
 
 
 
-	public void setDepartments(Vector<Department> departments) {
+	public void setDepartments(ArrayList<Department> departments) {
 		this.departments = departments;
 	}
 	
+	public boolean hasDepartments() {
+		return departments.size() != 0;
+	}
 	
-	public School(String name, Vector<Department> departments) {
+	
+	public School(String name, ArrayList<Department> departments) {
 		this.departments = departments;
 		this.name = name;
 	}
