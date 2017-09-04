@@ -5,9 +5,9 @@ import com.google.gson.annotations.Expose;
 
 public class School{
 	
-	@Expose()
+	//@Expose()
 	private String name;
-	@Expose()
+	//@Expose()
 	private ArrayList<Department> departments;
 
 	public String getName() {

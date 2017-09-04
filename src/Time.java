@@ -19,6 +19,10 @@ public class Time {
 	private String start;
 	private String end;
 	
+	public String toString() {
+		return start+"-"+end;
+	}
+	
 	public Time(String start, String end) {
 		this.start = start;
 		this.end = end;

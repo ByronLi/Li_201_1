@@ -42,10 +42,22 @@ public class Meeting {
 	public void setAssistants(ArrayList<Assistant> assistants) {
 		this.assistants = assistants;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Section: " + section);
+		sb.append("\nRoom:  " + room);
+		sb.append("\nMeetings: ");
+		for (OfficeHours oh: meetingPeriods) {
+			sb.append(oh.toString() + "  ");
+		}
+		return sb.toString();
+	}
+	
 
-	private String type;
-	private String section;
-	private String room;
+	private String type = null;
+	private String section = null;
+	private String room = null;
 	private ArrayList<OfficeHours> meetingPeriods;
 	private ArrayList<Assistant> assistants;
 	

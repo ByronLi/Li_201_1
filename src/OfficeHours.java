@@ -15,6 +15,9 @@ public class OfficeHours {
 	public void setTime(Time time) {
 		this.time = time;
 	}
+	public String toString() {
+		return day + " " + time.toString();
+	}
 
 	private String day;
 	private Time time;

@@ -43,12 +43,15 @@ public class Course {
 	public boolean hasStaff() {
 		return staffMembers.size() != 0;
 	}
+	public boolean hasMeeting() {
+		return meetings.size() != 0;
+	}
 
 	private Vector<Staff> staffMembers;
 	private Vector<Meeting> meetings;
-	private int number;
-	private String term;
-	private int year;
+	private int number = -1;
+	private String term = null;
+	private int year = -1;
 	
 	public Course(int number, String term, int year, Vector<Staff> staffMembers, Vector<Meeting> meetings) {
 		this.number = number;

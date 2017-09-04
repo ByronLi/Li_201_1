@@ -20,8 +20,8 @@ public class Name {
 	}
 
 
-	private String fname;
-	private String lname;
+	private String fname = null;
+	private String lname = null;
 
 	
 	public Name(String fname, String lname) {

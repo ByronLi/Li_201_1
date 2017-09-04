@@ -3,14 +3,14 @@ import java.util.Vector;
 
 public class Staff {
 	
-	private String type;
-	private int id;
+	private String type = null;
+	private int id = -1;
 	private Name name;
-	private String email;
-	private String phone;
-	private String office;
+	private String email = null;
+	private String phone = null;
+	private String office = null;
 	private ArrayList<OfficeHours> officeHours;
-	private String image;
+	private String image = null;
 	
 	public String getImage() {
 		return image;
