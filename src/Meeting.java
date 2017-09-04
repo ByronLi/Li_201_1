@@ -48,18 +48,32 @@ public class Meeting {
 		sb.append("Section: " + section);
 		sb.append("\nRoom:  " + room);
 		sb.append("\nMeetings: ");
+		if (meetingPeriods.size() == 0) {
+			sb.append("None");
+			return sb.toString();
+		}
 		for (OfficeHours oh: meetingPeriods) {
 			sb.append(oh.toString() + "  ");
 		}
 		return sb.toString();
 	}
 	
-
+	public ArrayList<Integer> getAssistantIDs(){
+		ArrayList<Integer> asID = new ArrayList<Integer>();
+		if (assistants == null) {
+			return null;
+		}
+		for (Assistant as: assistants) {
+			asID.add(as.getStaffMemberID());
+		}
+		return asID;
+	}
+	
 	private String type = null;
 	private String section = null;
 	private String room = null;
-	private ArrayList<OfficeHours> meetingPeriods;
-	private ArrayList<Assistant> assistants;
+	private ArrayList<OfficeHours> meetingPeriods = null;
+	private ArrayList<Assistant> assistants = null;
 	
 	public Meeting(String type, String section, String room, ArrayList<OfficeHours> meetingPeriods, ArrayList<Assistant> assistants){
 		this.type = type;

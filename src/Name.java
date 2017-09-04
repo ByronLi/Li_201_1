@@ -18,7 +18,10 @@ public class Name {
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
-
+	
+	public String toString() {
+		return fname + " " + lname;
+	}
 
 	private String fname = null;
 	private String lname = null;

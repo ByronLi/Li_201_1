@@ -62,6 +62,18 @@ public class Staff {
 	public void setOfficeHours(ArrayList<OfficeHours> officeHours) {
 		this.officeHours = officeHours;
 	}
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(type + "\nName: " + name.toString() +"\n"+"Email: " + email + "\n" + "Image: " + image + "\n" + "Phone: " + phone + "\n" + "Office: " + office + "\n" + "Office Hours: ");
+		if (officeHours.size() == 0) {
+			sb.append("None");
+			return sb.toString();
+		}
+		for (OfficeHours oh: officeHours) {
+			sb.append(oh.toString() + " ");
+		}
+		return sb.toString();
+	}
 
 	
 	public Staff(String type, int id, Name name, String email, String image, String phone, String office, ArrayList<OfficeHours> officeHours) {

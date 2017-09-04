@@ -7,7 +7,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
-import org.omg.CORBA.DynAnyPackage.TypeMismatch;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -65,6 +64,44 @@ public class Main {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			if (isMissingAttributes(schools)) { //Repeats code and is pretty gross but it works.
+				System.out.println("Json file does not meet requirements!");
+				noFile = true;
+				while(noFile) {
+					System.out.println("What is the name of the input file? ");
+					input = sn.next();
+					BufferedReader test = null;
+					
+					try {
+						test = new BufferedReader(new FileReader(input));
+							if (	isJsonValid(test)) {
+								noFile = false;
+							}
+							else {
+								System.out.println("That file is not a well-formed JSON file");
+							}
+						}
+					catch(FileNotFoundException fnfe) {
+							System.out.println("The file could not be found");
+						}
+					catch(JsonSyntaxException jse) {
+						System.out.println(jse);
+					}		
+				}	
+				
+					try {
+										
+							BufferedReader br = new BufferedReader(new FileReader(input));				
+							schools = gson.fromJson(br, SchoolColl.class);		
+							//System.out.print(schools.getSchools().get(0).getName());		
+							br.close();
+							
+						
+					} 
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+			}
 			
 			String display = null;
 			School menuSchool = null;
@@ -113,11 +150,10 @@ public class Main {
 				}
 				else if (menu == 4) {
 					System.out.println(display);
-					System.out.println("View Course Staff");
-					System.out.println("View Meeting Information");
-					System.out.println(i + ") Go to Courses Menu");
-					i++;
-					System.out.println(i + ") Exit");
+					System.out.println("1) View Course Staff");
+					System.out.println("2) View Meeting Information");
+					System.out.println("3) Go to Courses Menu");
+					System.out.println("4) Exit");
 					
 				}
 				else if (menu == 5) {
@@ -130,6 +166,15 @@ public class Main {
 					System.out.println(i + ") Go to " + display + " Menu");
 					i++;
 					System.out.println(i + ") Exit");
+					
+				}
+				else if (menu == 6) {
+					System.out.println(display);
+					System.out.println("Course Staff");
+					System.out.println("1) View Instructors\n2) View TAs\n3) View CPs\n4) View Graders");
+					System.out.println("5) Go to " + display + " Menu");
+					i++;
+					System.out.println("6) Exit");
 					
 				}
 				
@@ -164,7 +209,7 @@ public class Main {
 							menu--;
 						}
 						else {
-							display = schools.getSchools().get(menuChoice).getName();
+							display = schools.getSchools().get(menuChoice-1).getName();
 							menu ++;
 							menuSchool = schools.getSchools().get(menuChoice-1);
 							
@@ -232,7 +277,59 @@ public class Main {
 							menu--;
 						}
 						else {
-							
+							System.out.println(menuCourse.getMeetings().get(menuChoice-1).toString());
+							System.out.print("Assistants: ");
+							if (menuCourse.getMeetings().get(menuChoice-1).getAssistantIDs() != null) {
+								for (Integer id : menuCourse.getMeetings().get(menuChoice-1).getAssistantIDs()) {
+									for (Staff s: menuCourse.getStaffMembers()) {
+										if (s.getId() == id) {
+											System.out.print(s.getName().toString() + "  ");
+										}
+									}
+								}
+							}
+							else {
+								System.out.println("None");
+							}
+						}
+					}
+					else if (menu == 6) {
+						if (menuChoice > 6) {
+							System.out.println("That is not a valid option");
+						}
+						else if (menuChoice == 6) {
+							exit = true;
+						}
+						else if (menuChoice == 5) {
+							menu--;
+						}
+						else if (menuChoice == 1) {
+							for (Staff s: menuCourse.getStaffMembers()) {
+								if (s.getType().equals("instructor")) {
+									System.out.println(s.toString());
+								}
+							}
+						}
+						else if (menuChoice == 2) {
+							for (Staff s: menuCourse.getStaffMembers()) {
+								if (s.getType().equals("ta")) {
+									System.out.println(s.toString());
+								}
+							}
+						}
+						else if (menuChoice == 3) {
+							for (Staff s: menuCourse.getStaffMembers()) {
+								if (s.getType().equals("cp")) {
+									System.out.println(s.toString());
+								}
+							}
+						}
+						else if (menuChoice == 4) {
+							for (Staff s: menuCourse.getStaffMembers()) {
+								if (s.getType().equals("grader")) {
+									System.out.println(s.toString());
+								}
+							}
 						}
 					}
 					
@@ -273,7 +370,7 @@ public class Main {
 					if (c.getTerm() == null) {
 						return true;
 					}
-					if (!c.hasStaff() || c.hasMeeting()) {
+					if (!c.hasStaff() || !c.hasMeeting()) {
 						return true;
 					}
 					for (Meeting m: c.getMeetings()) {

@@ -16,8 +16,8 @@ public class Time {
 		this.end = end;
 	}
 
-	private String start;
-	private String end;
+	private String start = "";
+	private String end = "";
 	
 	public String toString() {
 		return start+"-"+end;

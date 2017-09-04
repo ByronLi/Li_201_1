@@ -47,8 +47,8 @@ public class Course {
 		return meetings.size() != 0;
 	}
 
-	private Vector<Staff> staffMembers;
-	private Vector<Meeting> meetings;
+	private Vector<Staff> staffMembers = null;
+	private Vector<Meeting> meetings = null;
 	private int number = -1;
 	private String term = null;
 	private int year = -1;

@@ -16,11 +16,14 @@ public class OfficeHours {
 		this.time = time;
 	}
 	public String toString() {
+		if (time == null) {
+			return day;
+		}
 		return day + " " + time.toString();
 	}
 
-	private String day;
-	private Time time;
+	private String day = null;
+	private Time time = null;
 	
 	public OfficeHours(String day, Time time) {
 		this.day = day;
